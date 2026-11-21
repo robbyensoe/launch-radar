@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Launch Radar — pre-token protocols, peer-priced</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+    <svg class="mark" viewBox="0 0 48 48" width="40" height="40" aria-hidden="true">
+      <circle cx="24" cy="24" r="21" fill="none" stroke="#232C38" stroke-width="2"/>
+      <circle cx="24" cy="24" r="13" fill="none" stroke="#232C38" stroke-width="2"/>
+      <circle cx="24" cy="24" r="5" fill="none" stroke="#232C38" stroke-width="2"/>
+      <path d="M24 24 L41 10 A21 21 0 0 1 44 22 Z" fill="#1D3A2A"/>
+      <line x1="24" y1="24" x2="41" y2="10" stroke="#3DDC84" stroke-width="2"/>
+      <circle cx="32" cy="17" r="2.4" fill="#3DDC84"/>
+      <circle cx="17" cy="31" r="2" fill="#3DDC84" opacity="0.55"/>
+      <circle cx="24" cy="24" r="1.8" fill="#E8EDF3"/>
+    </svg>
+    <div>
+      <h1>Launch Radar</h1>
+      <p class="sub" id="subline">Pre-token protocols, peer-priced from the snapshot itself.</p>
+    </div>
+  </div>
+  <div class="stats" id="stats"></div>
+</header>
+
+<section class="filters" id="filters">
+  <input id="q" type="search" placeholder="Search name, slug, category, chain…" aria-label="Search">
+  <select id="f-category" aria-label="Category"><option value="">All categories</option></select>
+  <select id="f-chain" aria-label="Chain"><option value="">All chains</option></select>
+  <select id="f-tvl" aria-label="Minimum TVL">
+    <option value="0">Any TVL</option>
+    <option value="50000000">TVL ≥ $50M</option>
+    <option value="100000000">TVL ≥ $100M</option>
+    <option value="500000000">TVL ≥ $500M</option>
+  </select>
+  <button id="f-watch" class="chip-toggle" aria-pressed="false">Watchlist only</button>
+  <button id="f-verdict" class="chip-toggle" aria-pressed="false">FARM verdicts</button>
+  <span class="count" id="count"></span>
+  <button id="f-reset" class="reset" hidden>Reset</button>
+</section>
+
+<main>
+  <table id="board">
+    <thead>
+      <tr>
+        <th data-sort="rank" class="num sorted">Rank</th>
+        <th data-sort="name">Protocol</th>
+        <th data-sort="category">Category</th>
+        <th>Chains</th>
+        <th data-sort="tvl_usd" class="num">TVL</th>
+        <th data-sort="change_7d" class="num">7d</th>
+        <th data-sort="implied_value_usd" class="num">Implied value</th>
+        <th data-sort="multiple" class="num">× TVL</th>
+        <th data-sort="verdict">Verdict</th>
+      </tr>
+    </thead>
+    <tbody id="rows"></tbody>
+  </table>
+  <p class="footnote" id="model-line"></p>
+
+  <section class="panel" id="model-panel">
+    <h2>The model — every number from the snapshot</h2>
+    <div id="model-body"></div>
+  </section>
+
+  <section class="panel" id="live-panel">
+    <h2>Already trading — the peer set that prices the board</h2>
+    <p class="panel-note">These protocols record a token in the same snapshot. They never rank on the radar; their market-cap-to-TVL ratios are the multiples the board is priced with.</p>
+    <table id="live">
+      <thead><tr><th>Protocol</th><th>Category</th><th class="num">TVL</th><th class="num">Market cap</th><th class="num">MCap × TVL</th></tr></thead>
+      <tbody id="live-rows"></tbody>
+    </table>
+  </section>
+</main>
+
+<aside id="detail" hidden>
+  <div class="detail-card" role="dialog" aria-modal="false" id="detail-card"></div>
+</aside>
+<div id="scrim" hidden></div>
+
+<script src="zz-data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
